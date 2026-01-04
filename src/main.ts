@@ -18,6 +18,16 @@ async function bootstrap() {
     .setDescription('회의실 예약 시스템 API 문서')
     .setVersion('1.0')
     .addTag('reservations')
+    .addTag('auth')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Enter JWT token (without "Bearer " prefix)',
+      },
+      'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

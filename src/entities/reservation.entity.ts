@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Room } from './room.entity';
@@ -45,6 +46,9 @@ export class Reservation {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.reservations, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })

@@ -17,19 +17,18 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    // 가상의 구조: 실제 인증 시스템과 연동 시 request.user에서 가져옴
-    // 현재는 헤더에서 역할을 가져오는 방식으로 구현 (실제 프로덕션에서는 JWT 등 사용)
     const request = context.switchToHttp().getRequest();
+    const user = request.user;
     
-    // 실제 구현 시: const user = request.user;
-    // 현재는 X-User-Role 헤더에서 역할을 가져오는 방식 (가상의 구조)
-    const userRole = request.headers['x-user-role'] as UserRole;
-    
-    if (!userRole) {
+    if (!user) {
       throw new ForbiddenException('인증 정보가 없습니다.');
     }
 
-    const hasRole = requiredRoles.some((role) => role === userRole);
+    if (!user.role) {
+      throw new ForbiddenException('사용자 역할 정보가 없습니다.');
+    }
+
+    const hasRole = requiredRoles.some((role) => role === user.role);
     
     if (!hasRole) {
       throw new ForbiddenException('권한이 없습니다.');
