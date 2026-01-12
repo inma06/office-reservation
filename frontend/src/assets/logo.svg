@@ -1,0 +1,56 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Deep Blue Background -->
+  <rect width="512" height="512" fill="#1e3a8a"/>
+  
+  <!-- Group for centering content -->
+  <g transform="translate(256, 256)">
+    
+    <!-- Calendar Icon with Check Mark (top area, integrated) -->
+    <g transform="translate(0, -130)">
+      <!-- Calendar base -->
+      <rect x="-40" y="-30" width="80" height="60" rx="5" fill="white"/>
+      <!-- Calendar binding rings -->
+      <circle cx="-26" cy="-25" r="3.5" fill="#1e3a8a"/>
+      <circle cx="26" cy="-25" r="3.5" fill="#1e3a8a"/>
+      <!-- Calendar grid lines (subtle) -->
+      <line x1="-40" y1="-5" x2="40" y2="-5" stroke="#1e3a8a" stroke-width="2" opacity="0.2"/>
+      <line x1="-40" y1="10" x2="40" y2="10" stroke="#1e3a8a" stroke-width="2" opacity="0.2"/>
+      <line x1="-15" y1="-30" x2="-15" y2="30" stroke="#1e3a8a" stroke-width="2" opacity="0.2"/>
+      <line x1="15" y1="-30" x2="15" y2="30" stroke="#1e3a8a" stroke-width="2" opacity="0.2"/>
+      <!-- Check mark overlay -->
+      <circle cx="0" cy="5" r="18" fill="#1e3a8a" opacity="0.9"/>
+      <path d="M -8 5 L -2 11 L 8 -3" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+    
+    <!-- Meeting Table (center, below calendar) -->
+    <ellipse cx="0" cy="30" rx="110" ry="40" fill="white"/>
+    
+    <!-- Left Chair -->
+    <g transform="translate(-90, 75)">
+      <!-- Chair back -->
+      <rect x="-14" y="-28" width="28" height="32" rx="4" fill="white"/>
+      <!-- Chair seat -->
+      <ellipse cx="0" cy="0" rx="22" ry="14" fill="white"/>
+      <!-- Chair legs (simplified) -->
+      <line x1="-18" y1="14" x2="-18" y2="30" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="18" y1="14" x2="18" y2="30" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="-18" y1="30" x2="-22" y2="34" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="18" y1="30" x2="22" y2="34" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    
+    <!-- Right Chair -->
+    <g transform="translate(90, 75)">
+      <!-- Chair back -->
+      <rect x="-14" y="-28" width="28" height="32" rx="4" fill="white"/>
+      <!-- Chair seat -->
+      <ellipse cx="0" cy="0" rx="22" ry="14" fill="white"/>
+      <!-- Chair legs (simplified) -->
+      <line x1="-18" y1="14" x2="-18" y2="30" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="18" y1="14" x2="18" y2="30" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="-18" y1="30" x2="-22" y2="34" stroke="white" stroke-width="4" stroke-linecap="round"/>
+      <line x1="18" y1="30" x2="22" y2="34" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    
+  </g>
+</svg>
+

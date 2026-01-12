@@ -40,7 +40,7 @@ export class ReservationsController {
   @ApiOperation({
     summary: '예약 내역 조회',
     description:
-      '일반 유저는 본인이 예약한 내역만, 관리자는 모든 예약 내역을 조회할 수 있습니다. Room 정보가 포함되며, 최신 예약이 먼저 표시됩니다.',
+      '모든 사용자가 모든 예약 내역을 조회할 수 있습니다. Room 및 User 정보가 포함되며, 최신 예약이 먼저 표시됩니다. 민감한 정보(reason)는 본인 예약인 경우에만 포함됩니다.',
   })
   @ApiResponse({
     status: 200,
@@ -112,6 +112,24 @@ export class ReservationsController {
               isActive: {
                 type: 'boolean',
                 example: true,
+              },
+            },
+          },
+          user: {
+            type: 'object',
+            properties: {
+              id: {
+                type: 'string',
+                format: 'uuid',
+                example: '550e8400-e29b-41d4-a716-446655440001',
+              },
+              name: {
+                type: 'string',
+                example: '홍길동',
+              },
+              email: {
+                type: 'string',
+                example: 'user@example.com',
               },
             },
           },

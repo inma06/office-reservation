@@ -102,21 +102,46 @@ export class ReservationsService {
     }
   }
 
-  async findAll(userId: string, userRole: string): Promise<Reservation[]> {
-    const whereCondition: any = {};
-
-    // 일반 유저는 본인 예약만 조회
-    if (userRole === 'USER') {
-      whereCondition.userId = userId;
-    }
-    // 관리자는 모든 예약 조회 (whereCondition이 빈 객체이므로 모든 예약 조회)
-
-    return await this.reservationRepository.find({
-      where: whereCondition,
-      relations: ['room'],
+  async findAll(userId: string, userRole: string): Promise<Partial<Reservation>[]> {
+    // 모든 유저의 예약 조회 (민감한 정보 제외)
+    const reservations = await this.reservationRepository.find({
+      relations: ['room', 'user'],
       order: {
         createdAt: 'DESC', // 최신 예약이 먼저
       },
+    });
+
+    // 민감한 정보(reason)를 제외하고 반환
+    // 본인 예약인 경우에만 reason 포함
+    return reservations.map((reservation) => {
+      const isOwnReservation = reservation.userId === userId;
+      const result: any = {
+        id: reservation.id,
+        userId: reservation.userId,
+        roomId: reservation.roomId,
+        startAt: reservation.startAt,
+        endAt: reservation.endAt,
+        status: reservation.status,
+        createdAt: reservation.createdAt,
+        updatedAt: reservation.updatedAt,
+        room: reservation.room,
+        user: reservation.user
+          ? {
+              id: reservation.user.id,
+              name: reservation.user.name,
+              email: reservation.user.email, // 예약자 정보를 위한 email (선택사항)
+            }
+          : null,
+      };
+
+      // 본인 예약인 경우에만 reason 포함
+      if (isOwnReservation) {
+        result.reason = reservation.reason;
+      } else {
+        result.reason = null; // 다른 사람의 예약은 reason 숨김
+      }
+
+      return result;
     });
   }
 

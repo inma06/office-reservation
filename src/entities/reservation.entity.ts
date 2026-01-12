@@ -28,10 +28,10 @@ export class Reservation {
   @Column()
   roomId: number;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamptz' })
   startAt: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamptz' })
   endAt: Date;
 
   @Column({
@@ -43,6 +43,9 @@ export class Reservation {
 
   @Column({ type: 'text', nullable: true })
   reason: string | null;
+
+  @Column({ type: 'boolean', default: false })
+  isNotified: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

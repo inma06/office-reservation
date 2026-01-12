@@ -1,10 +1,30 @@
+import { config } from 'dotenv';
+config(); // .env 파일 로드
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
+  // CORS 설정
+  const corsOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
+    : ['http://localhost:5173', 'http://localhost:3000'];
+  
+  app.enableCors({
+    origin: corsOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+  
+  // 전역 로깅 인터셉터 적용
+  app.useGlobalInterceptors(new LoggingInterceptor());
+  
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -19,6 +39,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('reservations')
     .addTag('auth')
+    .addTag('rooms')
     .addBearerAuth(
       {
         type: 'http',

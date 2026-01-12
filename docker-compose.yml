@@ -1,22 +1,13 @@
+version: '3.8'
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: office-reservation-db
+  db:
+    image: postgres:15 # 버전을 명시해주는 게 좋습니다
     restart: always
     environment:
+      POSTGRES_DB: reservation_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: office_reservation
+      POSTGRES_PASSWORD: "elqkfel0608@!@" # 최소 12자 이상 추천
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432" # 중요! 앞에 127.0.0.1을 붙여야 외부에서 못 들어옵니다.
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
-
+      - ./postgres_data:/var/lib/postgresql/data

@@ -44,8 +44,11 @@ export class AuthService {
       role: user.role,
     };
 
+    const { password, ...userWithoutPassword } = user;
+
     return {
       access_token: this.jwtService.sign(payload),
+      user: userWithoutPassword,
     };
   }
 
@@ -74,6 +77,37 @@ export class AuthService {
     });
 
     return user;
+  }
+
+  async validateOAuthUser(email: string, name: string): Promise<User> {
+    // 이메일로 기존 유저 확인
+    let user = await this.usersService.findByEmail(email);
+
+    if (!user) {
+      // 없으면 신규 가입 처리 (password는 임의의 문자열로 저장)
+      const saltRounds = 10;
+      const randomPassword = Math.random().toString(36).slice(-12);
+      const hashedPassword = await bcrypt.hash(
+        randomPassword + this.SALT,
+        saltRounds,
+      );
+
+      user = await this.usersService.create({
+        email,
+        password: hashedPassword,
+        name: name || email.split('@')[0],
+        role: UserRole.USER,
+      });
+    }
+
+    // 있으면 해당 유저 정보 반환
+    return user;
+  }
+
+  async validateGoogleUser(profile: any): Promise<User> {
+    const email = profile.email;
+    const name = `${profile.firstName || ''} ${profile.lastName || ''}`.trim() || email.split('@')[0];
+    return this.validateOAuthUser(email, name);
   }
 }
 

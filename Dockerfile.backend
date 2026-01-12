@@ -1,0 +1,30 @@
+# Backend Dockerfile
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# 패키지 파일 복사
+COPY package*.json ./
+RUN npm ci
+
+# 소스 코드 복사 및 빌드
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM node:18-alpine
+
+WORKDIR /app
+
+# 패키지 파일 복사 (production dependencies만)
+COPY package*.json ./
+RUN npm ci --only=production
+
+# 빌드된 파일 복사
+COPY --from=builder /app/dist ./dist
+
+# 포트 노출
+EXPOSE 3000
+
+# 애플리케이션 실행
+CMD ["node", "dist/main.js"]
