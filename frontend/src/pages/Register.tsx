@@ -132,6 +132,24 @@ export default function Register() {
               </Link>
             </p>
           </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+              <Link
+                to="/privacy"
+                className="hover:text-gray-700 underline"
+              >
+                개인정보처리방침
+              </Link>
+              <span className="text-gray-300">|</span>
+              <Link
+                to="/terms"
+                className="hover:text-gray-700 underline"
+              >
+                서비스 이용약관
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

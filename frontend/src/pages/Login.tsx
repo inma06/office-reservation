@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../api/auth';
-import { apiClient } from '../api/axios';
+import { apiClient, combineURL } from '../api/axios';
 import { LoginRequest, UserRole } from '../types';
 
 export default function Login() {
@@ -44,8 +44,11 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     // 백엔드의 구글 로그인 엔드포인트로 리다이렉트
-    // apiClient의 baseURL을 사용하여 환경변수 VITE_API_BASE_URL을 자동으로 사용
-    const googleAuthUrl = `${apiClient.defaults.baseURL}/auth/google`;
+    // combineURL을 사용하여 슬래시 중복 방지
+    const googleAuthUrl = combineURL(
+      apiClient.defaults.baseURL || '',
+      '/auth/google'
+    );
     window.location.href = googleAuthUrl;
   };
 
@@ -163,6 +166,24 @@ export default function Login() {
                 회원가입
               </Link>
             </p>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+              <Link
+                to="/privacy"
+                className="hover:text-gray-700 underline"
+              >
+                개인정보처리방침
+              </Link>
+              <span className="text-gray-300">|</span>
+              <Link
+                to="/terms"
+                className="hover:text-gray-700 underline"
+              >
+                서비스 이용약관
+              </Link>
+            </div>
           </div>
         </div>
       </div>

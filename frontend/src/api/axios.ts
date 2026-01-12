@@ -1,6 +1,20 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dev-leo.site/api';
+// baseURL 정규화: 끝의 슬래시 제거
+const normalizeBaseURL = (url: string): string => {
+  return url.replace(/\/+$/, '');
+};
+
+const API_BASE_URL = normalizeBaseURL(
+  import.meta.env.VITE_API_BASE_URL || 'https://dev-leo.site/api'
+);
+
+// URL 조합 유틸리티: 슬래시 중복 방지
+export const combineURL = (baseURL: string, path: string): string => {
+  const normalizedBase = normalizeBaseURL(baseURL);
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${normalizedBase}${normalizedPath}`;
+};
 
 // Axios 인스턴스 생성
 export const apiClient = axios.create({
