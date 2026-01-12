@@ -22,6 +22,7 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
       - CORS_ORIGIN=${CORS_ORIGIN}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
     env_file:
       - .env.prod
     depends_on:
