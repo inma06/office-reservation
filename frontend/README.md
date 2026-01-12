@@ -47,7 +47,11 @@ npm run build
 `.env` 파일을 생성하여 다음 변수를 설정할 수 있습니다:
 
 ```
+# 개발 환경
 VITE_API_BASE_URL=http://localhost:3000
+
+# 프로덕션 환경
+VITE_API_BASE_URL=https://dev-leo.site/api
 ```
 
 ## 프로젝트 구조

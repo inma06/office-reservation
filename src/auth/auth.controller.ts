@@ -54,7 +54,7 @@ export class AuthController {
     const result = await this.authService.login(user);
 
     // 프론트엔드로 리다이렉트하면서 JWT 토큰과 user 정보를 쿼리 스트링으로 전달
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://dev-leo.site';
     const { password, ...userWithoutPassword } = user;
     const userParam = encodeURIComponent(JSON.stringify(userWithoutPassword));
     const redirectUrl = `${frontendUrl}?token=${result.access_token}&user=${userParam}`;

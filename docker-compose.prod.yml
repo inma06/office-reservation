@@ -56,6 +56,7 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
       - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL:-}
+      - FRONTEND_URL=${FRONTEND_URL:-}
       - CORS_ORIGIN=${CORS_ORIGIN}
     env_file:
       - .env.prod

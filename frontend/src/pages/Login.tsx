@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../api/auth';
 import { LoginRequest, UserRole } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dev-leo.site/api';
 
 export default function Login() {
   const navigate = useNavigate();
