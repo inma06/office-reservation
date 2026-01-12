@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Reservation, ReservationStatus, UserRole, User, Room } from '../types';
 import { reservationsApi, UpdateReservationStatusRequest } from '../api/reservations';
-import { usersApi, PaginatedUsersResponse, UpdateUserRoleRequest } from '../api/users';
+import { usersApi, PaginatedUsersResponse } from '../api/users';
 import { roomsApi, PaginatedRoomsResponse, CreateRoomRequest, UpdateRoomRequest } from '../api/rooms';
 import { formatDateTimeKorean } from '../utils/dateUtils';
 
