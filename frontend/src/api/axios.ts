@@ -32,6 +32,22 @@ apiClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
+    // URL 정규화: 이중 슬래시 제거
+    // baseURL과 url을 조합할 때 이중 슬래시가 발생하지 않도록 처리
+    if (config.baseURL && config.url) {
+      // baseURL 정규화 (끝의 슬래시 제거)
+      const normalizedBaseURL = normalizeBaseURL(config.baseURL);
+      // url 정규화 (앞의 슬래시는 하나만 유지)
+      const normalizedURL = config.url.replace(/^\/+/, '/');
+      // baseURL 업데이트
+      config.baseURL = normalizedBaseURL;
+      // url 업데이트
+      config.url = normalizedURL;
+    } else if (config.url) {
+      // baseURL이 없는 경우에도 url 정규화
+      config.url = config.url.replace(/^\/+/, '/');
+    }
+
     // 요청 로깅
     const timestamp = new Date().toISOString();
     console.group(`🚀 [API Request] ${timestamp}`);
