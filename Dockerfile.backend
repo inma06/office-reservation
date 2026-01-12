@@ -5,7 +5,7 @@ WORKDIR /app
 
 # 패키지 파일 복사
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # 소스 코드 복사 및 빌드
 COPY . .
@@ -18,7 +18,7 @@ WORKDIR /app
 
 # 패키지 파일 복사 (production dependencies만)
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --production
 
 # 빌드된 파일 복사
 COPY --from=builder /app/dist ./dist

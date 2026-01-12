@@ -5,7 +5,7 @@ WORKDIR /app
 
 # 패키지 파일 복사
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # 소스 코드 복사
 COPY . .
