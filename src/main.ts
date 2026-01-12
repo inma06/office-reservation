@@ -1,5 +1,10 @@
 import { config } from 'dotenv';
 config(); // .env 파일 로드
+// 최상단에 추가
+import * as crypto from 'crypto';
+if (!global.crypto) {
+  (global as any).crypto = crypto;
+}
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
