@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../api/auth';
+import { apiClient } from '../api/axios';
 import { LoginRequest, UserRole } from '../types';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dev-leo.site/api';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -45,7 +44,9 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     // 백엔드의 구글 로그인 엔드포인트로 리다이렉트
-    window.location.href = `${API_BASE_URL}/auth/google`;
+    // apiClient의 baseURL을 사용하여 환경변수 VITE_API_BASE_URL을 자동으로 사용
+    const googleAuthUrl = `${apiClient.defaults.baseURL}/auth/google`;
+    window.location.href = googleAuthUrl;
   };
 
   return (
