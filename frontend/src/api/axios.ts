@@ -5,9 +5,15 @@ const normalizeBaseURL = (url: string): string => {
   return url.replace(/\/+$/, '');
 };
 
-const API_BASE_URL = normalizeBaseURL(
-  import.meta.env.VITE_API_BASE_URL || 'https://dev-leo.site/api'
-);
+// 환경 변수 또는 기본값 사용
+const getApiBaseURL = (): string => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  
+  // 환경 변수가 있으면 사용, 없으면 기본값으로 서버 주소 사용
+  return envUrl || 'https://dev-leo.site/api';
+};
+
+const API_BASE_URL = normalizeBaseURL(getApiBaseURL());
 
 // URL 조합 유틸리티: 슬래시 중복 방지
 export const combineURL = (baseURL: string, path: string): string => {
@@ -34,17 +40,13 @@ apiClient.interceptors.request.use(
 
     // URL 정규화: 이중 슬래시 제거
     // baseURL과 url을 조합할 때 이중 슬래시가 발생하지 않도록 처리
-    if (config.baseURL && config.url) {
+    if (config.baseURL) {
       // baseURL 정규화 (끝의 슬래시 제거)
-      const normalizedBaseURL = normalizeBaseURL(config.baseURL);
-      // url 정규화 (앞의 슬래시는 하나만 유지)
-      const normalizedURL = config.url.replace(/^\/+/, '/');
-      // baseURL 업데이트
-      config.baseURL = normalizedBaseURL;
-      // url 업데이트
-      config.url = normalizedURL;
-    } else if (config.url) {
-      // baseURL이 없는 경우에도 url 정규화
+      config.baseURL = normalizeBaseURL(config.baseURL);
+    }
+    
+    if (config.url) {
+      // url 정규화 (앞의 슬래시는 하나만 유지, 이중 슬래시 제거)
       config.url = config.url.replace(/^\/+/, '/');
     }
 
