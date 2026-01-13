@@ -27,6 +27,9 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
+  // 전역 API 프리픽스 설정
+  app.setGlobalPrefix('api');
+  
   // 전역 로깅 인터셉터 적용
   app.useGlobalInterceptors(new LoggingInterceptor());
   

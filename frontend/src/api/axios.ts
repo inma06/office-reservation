@@ -9,7 +9,15 @@ const normalizeBaseURL = (url: string): string => {
 const getApiBaseURL = (): string => {
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   
-  // 환경 변수가 있으면 사용, 없으면 기본값으로 서버 주소 사용
+  // 개발 환경 감지 (vite dev server)
+  const isDevelopment = import.meta.env.DEV;
+  
+  // 개발 환경이고 환경 변수가 없으면 vite proxy를 사용하기 위해 /api 사용
+  if (isDevelopment && !envUrl) {
+    return '/api';
+  }
+  
+  // 환경 변수가 있으면 사용, 없으면 프로덕션 기본값으로 서버 주소 사용
   return envUrl || 'https://dev-leo.site/api';
 };
 
