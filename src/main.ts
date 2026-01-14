@@ -60,7 +60,8 @@ async function bootstrap() {
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  // Swagger를 /api/docs 경로에 설정 (전역 프리픽스와 합쳐져서 /api/docs가 됨)
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }
