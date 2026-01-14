@@ -65,7 +65,7 @@
 - **Language**: TypeScript 5.7
 - **ORM**: TypeORM 0.3.x
 - **Database**: PostgreSQL
-- **Authentication**: Passport.js (JWT, Local, Google OAuth)
+- **Authentication**: Passport.js (JWT, Local)
 - **Validation**: class-validator, class-transformer
 
 ### Frontend
