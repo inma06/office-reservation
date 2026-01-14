@@ -6,15 +6,6 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { GoogleStrategy } from './strategies/google.strategy';
-
-const hasGoogleCredentials =
-  process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET;
-
-const baseProviders = [AuthService, JwtStrategy, LocalStrategy];
-const providers = hasGoogleCredentials
-  ? [...baseProviders, GoogleStrategy]
-  : baseProviders;
 
 @Module({
   imports: [
@@ -26,7 +17,7 @@ const providers = hasGoogleCredentials
     }),
   ],
   controllers: [AuthController],
-  providers,
+  providers: [AuthService, JwtStrategy, LocalStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
