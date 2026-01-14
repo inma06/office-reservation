@@ -1,5 +1,9 @@
 # 🏢 실시간 오피스 예약 시스템 (Office Reservation System)
 ### [프로젝트 바로가기](https://dev-leo.site)
+### [swagger docs](https://dev-leo.site/api/docs)
+### ADMIN
+ - email: admin@admin.com
+ - password: admin1234
 <div align="center">
 
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
