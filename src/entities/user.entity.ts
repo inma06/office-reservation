@@ -27,8 +27,8 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   oauthProvider: string | null;
 
-  @Column({ nullable: true })
-  oauthProviderId?: string | null;
+  @Column({ type: 'varchar', nullable: true })
+  oauthProviderId: string | null;
 
   @Column()
   name: string;
