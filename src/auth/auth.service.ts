@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 import { UsersService } from '../users/users.service';
 import { User, UserRole } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -83,6 +84,12 @@ export class AuthService {
     return user;
   }
 
+  private async createOAuthPasswordHash(): Promise<string> {
+    const saltRounds = 10;
+    const randomPassword = crypto.randomBytes(32).toString('hex');
+    return bcrypt.hash(randomPassword + this.SALT, saltRounds);
+  }
+
   async loginWithGoogle(oauthUser: {
     email?: string;
     name?: string;
@@ -96,9 +103,10 @@ export class AuthService {
     let user = await this.usersService.findByEmail(oauthUser.email);
 
     if (!user) {
+      const oauthPasswordHash = await this.createOAuthPasswordHash();
       user = await this.usersService.create({
         email: oauthUser.email,
-        password: null,
+        password: oauthPasswordHash,
         name: oauthUser.name || oauthUser.email,
         role: UserRole.USER,
         oauthProvider: oauthUser.oauthProvider,
@@ -106,6 +114,11 @@ export class AuthService {
       });
     } else {
       let shouldSave = false;
+
+      if (!user.password) {
+        user.password = await this.createOAuthPasswordHash();
+        shouldSave = true;
+      }
 
       if (!user.oauthProvider) {
         user.oauthProvider = oauthUser.oauthProvider;
