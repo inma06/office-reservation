@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -33,6 +35,7 @@ code {
   font-family: 'Roboto', arial, sans-serif;
   font-size: 14px;
   height: 40px;
+  line-height: 20px;
   letter-spacing: 0.25px;
   outline: none;
   overflow: hidden;
@@ -46,6 +49,19 @@ code {
   width: auto;
   max-width: 400px;
   min-width: min-content;
+}
+
+.gsi-material-button.full-width {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 48px;
+}
+
+.gsi-material-button.full-width .gsi-material-button-content-wrapper {
+  justify-content: center;
 }
 
 .gsi-material-button .gsi-material-button-icon {
@@ -64,7 +80,7 @@ code {
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
   height: 100%;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
   width: 100%;
 }

@@ -112,7 +112,10 @@ export default function Login() {
               {loading ? '로그인 중...' : '로그인'}
             </button>
 
-            <a href={googleLoginUrl} className="gsi-material-button">
+            <a
+              href={googleLoginUrl}
+              className="gsi-material-button full-width"
+            >
               <span className="gsi-material-button-state" />
               <span className="gsi-material-button-content-wrapper">
                 <span className="gsi-material-button-icon">
