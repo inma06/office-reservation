@@ -8,6 +8,8 @@
 |--------|----------|------|----------|------|
 | POST | `/api/auth/register` | 회원가입 | ❌ | - |
 | POST | `/api/auth/login` | 로그인 | ❌ | - |
+| GET | `/api/auth/google` | Google OAuth 로그인 시작 | ❌ | - |
+| GET | `/api/auth/google/callback` | Google OAuth 콜백 | ❌ | - |
 
 ## 👥 사용자 관리 (Users)
 

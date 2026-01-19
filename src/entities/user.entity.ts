@@ -21,8 +21,14 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  password: string;
+  @Column({ nullable: true })
+  password: string | null;
+
+  @Column({ nullable: true })
+  oauthProvider?: string | null;
+
+  @Column({ nullable: true })
+  oauthProviderId?: string | null;
 
   @Column()
   name: string;

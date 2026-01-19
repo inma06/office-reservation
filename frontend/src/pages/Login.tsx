@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../api/auth';
+import { apiClient, combineURL } from '../api/axios';
 import { LoginRequest, UserRole } from '../types';
 
 export default function Login() {
@@ -11,6 +12,10 @@ export default function Login() {
   });
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const googleLoginUrl = combineURL(
+    apiClient.defaults.baseURL ?? '/api',
+    '/auth/google',
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,6 +111,14 @@ export default function Login() {
             >
               {loading ? '로그인 중...' : '로그인'}
             </button>
+
+            <a
+              href={googleLoginUrl}
+              className="w-full flex items-center justify-center gap-2 border border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 transition"
+            >
+              <span className="text-sm font-bold">G</span>
+              Google로 로그인
+            </a>
           </form>
 
           <div className="mt-6 text-center">

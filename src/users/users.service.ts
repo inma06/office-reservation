@@ -31,6 +31,10 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  async save(user: User): Promise<User> {
+    return this.userRepository.save(user);
+  }
+
   async findAll(
     page: number = 1,
     limit: number = 20,

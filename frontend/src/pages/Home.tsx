@@ -188,6 +188,14 @@ export default function Home() {
                   <p className="text-xs text-slate-500">{user.role}</p>
                 </div>
               </div>
+              <a
+                href="/api/docs"
+                className="px-4 py-2 text-sm text-blue-900 border border-blue-200 hover:bg-blue-50 rounded-lg transition font-semibold"
+                target="_blank"
+                rel="noreferrer"
+              >
+                API DOC
+              </a>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"

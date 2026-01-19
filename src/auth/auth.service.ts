@@ -25,6 +25,10 @@ export class AuthService {
       return null;
     }
 
+    if (!user.password) {
+      return null;
+    }
+
     // 회원가입 시 password + SALT로 해시했으므로, 비교 시에도 동일하게 처리
     const isPasswordValid = await bcrypt.compare(
       password + this.SALT,
@@ -77,6 +81,53 @@ export class AuthService {
     });
 
     return user;
+  }
+
+  async loginWithGoogle(oauthUser: {
+    email?: string;
+    name?: string;
+    oauthProvider: string;
+    oauthProviderId: string;
+  }) {
+    if (!oauthUser.email) {
+      throw new UnauthorizedException('Google 계정 이메일을 확인할 수 없습니다.');
+    }
+
+    let user = await this.usersService.findByEmail(oauthUser.email);
+
+    if (!user) {
+      user = await this.usersService.create({
+        email: oauthUser.email,
+        password: null,
+        name: oauthUser.name || oauthUser.email,
+        role: UserRole.USER,
+        oauthProvider: oauthUser.oauthProvider,
+        oauthProviderId: oauthUser.oauthProviderId,
+      });
+    } else {
+      let shouldSave = false;
+
+      if (!user.oauthProvider) {
+        user.oauthProvider = oauthUser.oauthProvider;
+        shouldSave = true;
+      }
+
+      if (!user.oauthProviderId) {
+        user.oauthProviderId = oauthUser.oauthProviderId;
+        shouldSave = true;
+      }
+
+      if (!user.name && oauthUser.name) {
+        user.name = oauthUser.name;
+        shouldSave = true;
+      }
+
+      if (shouldSave) {
+        user = await this.usersService.save(user);
+      }
+    }
+
+    return this.login(user);
   }
 }
 
